@@ -14,18 +14,19 @@ const updateUserPlans = async (event, context, callback) => {
 
         plansRecord = plansRecord.Item
 
-        if (plansRecord.dates.hasOwnProperty(dates)) {
-            let obj = {}
-            obj[dates] = { "reading": ["123456789"], "complete": true }
-            const obj2 = obj
-            const obj3 = { ...plansRecord.dates, ...obj2 }
+       if (plansRecord.dates.hasOwnProperty(dates)) {
+            var insssss = { "reading": ["212121256789"], "complete": true }
 
             let updatePlans = {
                 TableName: 'dev-Plans',
                 Key: { email, planId },
-                UpdateExpression: 'SET dates = :dates',
+                UpdateExpression: "SET #dates.#objKey = :locVal",
+                ExpressionAttributeNames: {
+                    '#dates': 'dates',
+                    '#objKey': dates,
+                },
                 ExpressionAttributeValues: {
-                    ':dates': obj3,
+                    ':locVal': insssss
                 },
                 ReturnValues: "UPDATED_NEW"
             };
